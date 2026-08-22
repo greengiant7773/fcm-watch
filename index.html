@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FCM WATCH | 食品接触材料 輸出規制ノート</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink-navy: #0F2436;
+    --panel-navy: #123049;
+    --panel-navy-2: #16324A;
+    --grid-line: rgba(62,107,133,0.18);
+    --paper: #EDE8DA;
+    --paper-dim: #B9C2CA;
+    --brass: #C9A227;
+    --stamp-red: #C1440E;
+    --line-soft: rgba(110,148,170,0.35);
+    --font-jp: "Noto Sans JP", sans-serif;
+    --font-mono: "Space Grotesk", var(--font-jp), sans-serif;
+  }
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{
+    margin:0;
+    background:var(--ink-navy);
+    color:var(--paper);
+    font-family:var(--font-jp);
+    line-height:1.7;
+    background-image:
+      linear-gradient(var(--grid-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+    background-size: 44px 44px;
+  }
+  a{ color:inherit; }
+  .wrap{ max-width:1080px; margin:0 auto; padding:0 28px; }
+
+  /* ---- header ---- */
+  header{
+    position:sticky; top:0; z-index:20;
+    background:rgba(15,36,54,0.92);
+    backdrop-filter: blur(6px);
+    border-bottom:1px solid var(--line-soft);
+  }
+  .nav{ display:flex; align-items:center; justify-content:space-between; padding:16px 0; gap:16px; }
+  .logo{
+    font-family:var(--font-mono); font-weight:700; letter-spacing:0.08em;
+    font-size:19px; color:var(--paper); white-space:nowrap;
+  }
+  .logo span{ color:var(--brass); }
+  .nav-links{ display:flex; gap:28px; font-size:14px; color:var(--paper-dim); white-space:nowrap; }
+  .nav-links a{ text-decoration:none; }
+  .nav-links a:hover{ color:var(--brass); }
+  .nav-cta{
+    font-size:13px; font-weight:700; color:var(--ink-navy); background:var(--brass);
+    padding:9px 16px; border-radius:6px; text-decoration:none; letter-spacing:0.02em;
+    white-space:nowrap; flex-shrink:0;
+  }
+  .nav-right{ display:flex; align-items:center; gap:20px; }
+  .menu-btn{
+    display:none; background:none; border:1px solid var(--line-soft); border-radius:6px;
+    width:38px; height:38px; align-items:center; justify-content:center; cursor:pointer;
+    flex-shrink:0; padding:0;
+  }
+  .menu-btn span, .menu-btn::before, .menu-btn::after{
+    content:""; display:block; width:18px; height:2px; background:var(--paper);
+    position:relative;
+  }
+  .menu-btn::before{ position:absolute; transform:translateY(-6px); }
+  .menu-btn::after{ position:absolute; transform:translateY(6px); }
+
+  .mobile-panel{
+    display:none; flex-direction:column; gap:2px; padding:8px 0 18px;
+    border-top:1px solid var(--line-soft);
+  }
+  .mobile-panel a{
+    text-decoration:none; color:var(--paper-dim); font-size:15px; padding:12px 4px;
+    border-bottom:1px solid rgba(110,148,170,0.15);
+  }
+  .mobile-panel a:last-child{ border-bottom:none; }
+
+  @media (max-width: 720px){
+    .nav-links{ display:none; }
+    .nav-cta{ display:none; }
+    .menu-btn{ display:flex; }
+    header.open .mobile-panel{ display:flex; }
+  }
+
+  /* ---- hero ---- */
+  .hero{ padding:96px 0 72px; position:relative; overflow:hidden; }
+  .hero::after{
+    content:""; position:absolute; right:-120px; top:-80px; width:480px; height:480px;
+    background:radial-gradient(circle, rgba(62,107,133,0.35), transparent 70%);
+    pointer-events:none;
+  }
+  .eyebrow{
+    display:inline-block; font-family:var(--font-mono); font-weight:700; font-size:13px;
+    letter-spacing:0.12em; color:var(--brass); text-transform:uppercase;
+    border-bottom:2px solid var(--brass); padding-bottom:8px; margin-bottom:28px;
+  }
+  h1{
+    font-weight:900; font-size:56px; line-height:1.25; margin:0 0 22px; max-width:680px;
+    letter-spacing:-0.01em;
+  }
+  .hero p.lead{
+    font-size:18px; color:var(--paper-dim); max-width:560px; margin:0 0 36px; font-weight:400;
+  }
+  .hero-ctas{ display:flex; gap:14px; flex-wrap:wrap; }
+  .hero-note{ margin:20px 0 0; font-size:13px; color:var(--paper-dim); opacity:0.85; }
+  .btn-primary{
+    background:var(--brass); color:var(--ink-navy); font-weight:700; padding:14px 26px;
+    border-radius:8px; text-decoration:none; font-size:15px;
+  }
+  .btn-secondary{
+    border:1px solid var(--line-soft); color:var(--paper); padding:14px 26px;
+    border-radius:8px; text-decoration:none; font-size:15px;
+  }
+  .stamp{
+    position:absolute; top:100px; right:60px; border:1px solid var(--brass); color:var(--brass);
+    font-family:var(--font-mono); font-weight:700; font-size:13px; padding:7px 16px; border-radius:20px;
+    letter-spacing:0.08em; text-transform:uppercase;
+  }
+  @media (max-width: 780px){ .stamp{ display:none; } h1{ font-size:38px; } }
+
+  /* ---- section shared ---- */
+  section{ padding:64px 0; border-top:1px solid var(--line-soft); }
+  .section-head{ margin-bottom:36px; }
+  .section-tag{
+    font-family:var(--font-mono); font-size:12px; letter-spacing:0.14em; color:var(--brass);
+    text-transform:uppercase; margin-bottom:10px; display:block;
+  }
+  h2{ font-size:28px; margin:0; font-weight:700; }
+  .section-desc{ color:var(--paper-dim); font-size:15px; margin-top:10px; max-width:600px; }
+
+  /* ---- regulatory basics cards ---- */
+  .cards{ display:grid; grid-template-columns:repeat(2,1fr); gap:20px; max-width:760px; }
+  @media (max-width: 700px){ .cards{ grid-template-columns:1fr; } }
+  .card{
+    background:var(--panel-navy); border:1px solid var(--line-soft); border-radius:12px;
+    padding:26px;
+  }
+  .card .region{
+    font-family:var(--font-mono); font-weight:700; font-size:15px; color:var(--brass);
+    letter-spacing:0.04em; margin-bottom:14px; display:flex; align-items:center; gap:10px;
+  }
+  .flag-img{ width:36px; height:auto; border-radius:3px; box-shadow:0 0 0 1px rgba(237,232,218,0.25); display:block; }
+  .card h3{ font-size:18px; margin:0 0 10px; }
+  .card p{ font-size:14px; color:var(--paper-dim); margin:0 0 14px; }
+  .card ul{ margin:0; padding-left:18px; font-size:13px; color:var(--paper-dim); }
+  .card li{ margin-bottom:6px; }
+
+  /* ---- plan / monetization section ---- */
+  .plan-card{
+    background:linear-gradient(135deg, var(--panel-navy), var(--panel-navy-2));
+    border:1px solid var(--brass); border-radius:14px; padding:32px;
+    display:flex; flex-wrap:wrap; gap:28px; align-items:center; justify-content:space-between;
+  }
+  .plan-list{ list-style:none; margin:0; padding:0; flex:1; min-width:260px; }
+  .plan-list li{
+    font-size:14px; color:var(--paper); padding:8px 0 8px 26px; position:relative;
+  }
+  .plan-list li::before{
+    content:"✓"; position:absolute; left:0; color:var(--brass); font-weight:700;
+  }
+  .plan-cta{ display:flex; flex-direction:column; align-items:flex-start; gap:10px; }
+  .plan-status{ font-size:12px; color:var(--paper-dim); letter-spacing:0.04em; }
+
+  /* ---- updates list ---- */
+  .updates{ list-style:none; margin:0; padding:0; }
+  .update-item{
+    display:grid; grid-template-columns:64px 90px 1fr; gap:18px; align-items:center;
+    padding:18px 0; border-bottom:1px solid var(--line-soft);
+  }
+  .update-item .tag{ order:1; }
+  .update-item .update-date{ order:2; }
+  .update-item .update-body{ order:3; }
+  .update-item:last-child{ border-bottom:none; }
+  .update-date{ font-family:var(--font-mono); font-size:13px; color:var(--paper-dim); }
+  .tag{
+    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:5px;
+    font-size:11px; font-weight:700; letter-spacing:0.04em; height:fit-content;
+  }
+  .tag img.flag-img{ width:34px; }
+  .tag-eu{ color:#BFE0EE; }
+  .tag-us{ color:#F0A97F; }
+  .update-body h4{ margin:0 0 6px; font-size:15px; }
+  .update-body p{ margin:0; font-size:13px; color:var(--paper-dim); }
+  .sample-note{
+    margin-top:22px; font-size:13px; color:var(--paper-dim); border:1px dashed var(--line-soft);
+    border-radius:8px; padding:14px 16px;
+  }
+  .sample-note strong{ color:var(--brass); }
+
+  /* ---- about ---- */
+  .about{ display:flex; gap:40px; align-items:flex-start; flex-wrap:wrap; }
+  .about p{ color:var(--paper-dim); font-size:15px; max-width:620px; }
+
+  footer{
+    border-top:1px solid var(--line-soft); padding:40px 0; font-size:13px; color:var(--paper-dim);
+  }
+  footer .foot-row{ display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; }
+</style>
+</head>
+<body>
+
+<header id="site-header">
+  <div class="wrap nav">
+    <div class="logo">FCM <span>WATCH</span></div>
+    <div class="nav-right">
+      <nav class="nav-links">
+        <a href="#basics">規制の基礎</a>
+        <a href="#updates">最新アップデート</a>
+        <a href="#plan">詳細版について</a>
+        <a href="#about">このノートについて</a>
+      </nav>
+      <a class="nav-cta" href="#" id="linkedin-link">LinkedInで購読</a>
+      <button class="menu-btn" id="menu-btn" aria-label="メニューを開く" aria-expanded="false"></button>
+    </div>
+  </div>
+  <nav class="mobile-panel wrap" id="mobile-panel">
+    <a href="#basics">規制の基礎</a>
+    <a href="#updates">最新アップデート</a>
+    <a href="#plan">詳細版について</a>
+    <a href="#about">このノートについて</a>
+    <a href="#" id="linkedin-link-mobile">LinkedInで購読</a>
+  </nav>
+</header>
+
+<section class="hero wrap">
+  <div class="stamp">Since 2026</div>
+  <span class="eyebrow">食品接触材料 輸出規制ノート</span>
+  <h1>「海外に輸出できる容器はあるか？」<br>容器メーカーに、毎回イチから聞き直していませんか。</h1>
+  <p class="lead">
+    EU・米国——食品接触材料（樹脂・パッキン・コーティング）の輸出規制は、
+    国ごとに枠組みが違い、しかも更新が止まりません。FCM WATCHは、その変化を
+    実務目線で整理して届けるノートです。
+  </p>
+  <div class="hero-ctas">
+    <a class="btn-primary" href="#updates">最新アップデートを見る</a>
+    <a class="btn-secondary" href="#basics">規制の基礎から読む</a>
+  </div>
+  <p class="hero-note">容器・包装業界の実務者が、実際の問い合わせをもとに調べてまとめています。</p>
+</section>
+
+<section id="basics" class="wrap">
+  <div class="section-head">
+    <span class="section-tag">Regulatory Basics</span>
+    <h2>まず押さえる、3市場の枠組み</h2>
+    <p class="section-desc">容器メーカーに質問する前に、自分で確認できるレベルの基礎知識です。</p>
+  </div>
+  <div class="cards">
+    <div class="card">
+      <span class="region"><img class="flag-img" src="flags/eu.png" alt="EU"> EU</span>
+      <h3>Regulation (EU) No 10/2011</h3>
+      <p>樹脂本体はここでOML・SMLが規定。ただしパッキンや印刷インキは国ごとの規則に注意。</p>
+      <ul>
+        <li>枠組み：Regulation (EC) 1935/2004</li>
+        <li>プラスチック：Regulation (EU) No 10/2011</li>
+        <li>非プラスチック部材：加盟国別ルール</li>
+        <li>必須書類：Declaration of Compliance</li>
+      </ul>
+    </div>
+    <div class="card">
+      <span class="region"><img class="flag-img" src="flags/us.png" alt="US"> US</span>
+      <h3>FDA 21 CFR 175–178</h3>
+      <p>コーティング・接着剤・食品接触物質を個別条項でカバー。物質ごとの許認可状況の確認が要点。</p>
+      <ul>
+        <li>間接添加物：21 CFR 174–178</li>
+        <li>コーティング：21 CFR 175</li>
+        <li>接着剤：21 CFR 175.105</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="updates" class="wrap">
+  <div class="section-head">
+    <span class="section-tag">Live Updates</span>
+    <h2>最新アップデート</h2>
+    <p class="section-desc">規制改定を検知し次第、ここに自動で追加されていきます。</p>
+  </div>
+
+  <ul class="updates" id="updates-list"></ul>
+
+  <div class="sample-note">
+    <strong>Note：</strong> 一覧は<code>updates.json</code>を自動読み込みしています。
+    GitHub Actionsが毎日FDA・EUR-Lexの新着を収集して更新するまでは、
+    サンプル項目が表示されます。
+  </div>
+</section>
+
+<section id="plan" class="wrap">
+  <div class="section-head">
+    <span class="section-tag">For Teams</span>
+    <h2>もっと詳しく知りたい方へ</h2>
+    <p class="section-desc">
+      無料のノートでは基礎と最新動向をまとめています。個別の製品・材質での
+      判断が必要な場合は、詳細版を近日公開予定です。
+    </p>
+  </div>
+  <div class="plan-card">
+    <ul class="plan-list">
+      <li>国×物質の規制マトリクス表（樹脂・パッキン・コーティング別）</li>
+      <li>関連する規制改定が出た際の即時アラート</li>
+      <li>特定の製品カテゴリに絞った個別の相談</li>
+    </ul>
+    <div class="plan-cta">
+      <span class="plan-status">近日公開・現在準備中</span>
+      <a class="btn-primary" href="#" id="linkedin-link-plan">興味がある方はLinkedInでDMを</a>
+    </div>
+  </div>
+</section>
+
+<section id="about" class="wrap">
+  <div class="section-head">
+    <span class="section-tag">About</span>
+    <h2>このノートについて</h2>
+  </div>
+  <div class="about">
+    <p>
+      容器・包装業界で、海外輸出に関わる相談を日常的に受けています。特に多いのが
+      「この容器はEU／米国に輸出できるか？」という質問。しかし規制は複雑で
+      更新も頻繁、情報が体系的にまとまっている場所がほとんどありません。
+      FCM WATCHは、食品接触材料（樹脂・パッキン・コーティングなど）に関わる
+      EU・米国の規制アップデートを、実務目線で整理して発信しています。
+    </p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-row">
+    <span>FCM WATCH — 食品接触材料 輸出規制ノート</span>
+    <span>本サイトの情報は一般的な情報提供を目的とし、法的助言ではありません。個別案件は一次情報・専門家にご確認ください。</span>
+  </div>
+</footer>
+
+<script>
+  // ------------------------------------------------------------------
+  // updates.json を読み込んで表示する。
+  // fetchが失敗する場合（file://で直接開いた場合など）は、
+  // 最低限のフォールバック表示にする。
+  // ------------------------------------------------------------------
+  const FALLBACK = [
+    {
+      date: "サンプル", region: "eu", flag: "flags/eu.png", regionLabel: "EU",
+      title: "PFAS系コーティングの加盟国別規制動向を整理",
+      body: "食品接触材料向け撥水・撥油コーティングに対する各国の個別規制が拡大。対象物質・移行期間の一覧化を予定。",
+      link: ""
+    }
+  ];
+
+  function renderUpdates(updates) {
+    const list = document.getElementById("updates-list");
+    list.innerHTML = "";
+    updates.forEach(u => {
+      const li = document.createElement("li");
+      li.className = "update-item";
+      const titleHtml = u.link
+        ? `<h4><a href="${u.link}" target="_blank" rel="noopener">${u.title}</a></h4>`
+        : `<h4>${u.title}</h4>`;
+      li.innerHTML = `
+        <span class="tag tag-${u.region}">
+          <img class="flag-img" src="${u.flag}" alt="${u.regionLabel}">${u.regionLabel}
+        </span>
+        <span class="update-date">${u.date}</span>
+        <div class="update-body">
+          ${titleHtml}
+          <p>${u.body}</p>
+        </div>
+      `;
+      list.appendChild(li);
+    });
+  }
+
+  fetch("updates.json")
+    .then(r => { if (!r.ok) throw new Error("fetch failed"); return r.json(); })
+    .then(renderUpdates)
+    .catch(() => renderUpdates(FALLBACK));
+
+  // ---- mobile menu toggle ----
+  const header = document.getElementById("site-header");
+  const menuBtn = document.getElementById("menu-btn");
+  menuBtn.addEventListener("click", () => {
+    const isOpen = header.classList.toggle("open");
+    menuBtn.setAttribute("aria-expanded", isOpen ? "true" : "false");
+  });
+  document.getElementById("mobile-panel").querySelectorAll("a").forEach(a => {
+    a.addEventListener("click", () => {
+      header.classList.remove("open");
+      menuBtn.setAttribute("aria-expanded", "false");
+    });
+  });
+</script>
+
+<!-- Cloudflare Web Analytics -->
+<script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "492fce008be444259c713f0df4321d00"}'></script>
+<!-- End Cloudflare Web Analytics -->
+
+</body>
+</html>
