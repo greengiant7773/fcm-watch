@@ -59,6 +59,26 @@ LinkedInニュースレターのURLが決まったら、この3つを実際のUR
 https://eping.wto.org）で Notifying Member = China、ICS Code = `67.250`
 （食品接触材料）で登録し、メールアラートを受け取る方法が使える。
 
+## noteへの自動投稿について（要注意）
+noteは公式の投稿APIを公開していない（公式ヘルプに「公開予定は未定」と明記）。
+`note_client.py` / `post_to_note.py` は、有志が解析した非公式エンドポイントを
+使っており、**動作保証はない**。仕様変更で突然動かなくなる可能性、
+利用規約上グレーな行為である点は理解した上で使うこと。
+
+セットアップ：
+1. ブラウザでnote.comにログインした状態でDevToolsを開き、Cookie一覧から
+   セッションを保持しているCookie（`note_client.py`内の`COOKIE_NAME`を参照。
+   名前が違っていたらコード側を書き換える）の値をコピーする
+2. GitHubリポジトリの Settings → Secrets and variables → Actions →
+   「New repository secret」で、名前 `NOTE_SESSION_COOKIE`、値に
+   コピーしたCookieの値を登録する
+3. これで、毎回の自動実行時に新しい規制アップデートがあれば、
+   自動で下書き作成→即公開まで行われる
+
+投稿済みの記録は `posted_to_note.json` に残るので、同じ内容を二重投稿する
+ことはない。エラーになった場合はGitHub Actionsのログ（Post new updates to
+noteのステップ）にレスポンス内容が出るので、そこからpayloadの調整が必要。
+
 ## アクセス解析（Cloudflare Web Analytics）
 `index.html`の末尾に、Cloudflare Web Analyticsのビーコンを埋め込み済み
 （`token`はプレースホルダーなので差し替えが必要）。
