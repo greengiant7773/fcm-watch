@@ -2,8 +2,9 @@ name: Update regulation feed
 
 on:
   schedule:
+    # 毎日 21:00 UTC = 日本時間 朝6:00 頃に実行
     - cron: "0 21 * * *"
-  workflow_dispatch: {}
+  workflow_dispatch: {}  # 手動実行ボタンも使えるようにしておく
 
 permissions:
   contents: write
@@ -24,10 +25,15 @@ jobs:
       - name: Run monitor script
         run: python monitor.py
 
+      - name: Post new updates to note
+        env:
+          NOTE_SESSION_COOKIE: ${{ secrets.NOTE_SESSION_COOKIE }}
+        run: python post_to_note.py
+
       - name: Commit and push if changed
         run: |
           git config user.name "fcm-watch-bot"
           git config user.email "actions@users.noreply.github.com"
-          git add updates.json
+          git add updates.json posted_to_note.json
           git diff --staged --quiet || git commit -m "chore: update regulation feed"
           git push
