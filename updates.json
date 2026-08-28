@@ -1,20 +1,92 @@
 [
   {
-    "date": "サンプル",
-    "region": "eu",
-    "flag": "flags/eu.png",
-    "regionLabel": "EU",
-    "title": "PFAS系コーティングの加盟国別規制動向を整理",
-    "body": "食品接触材料向け撥水・撥油コーティングに対する各国の個別規制が拡大。対象物質・移行期間の一覧化を予定。",
-    "link": ""
-  },
-  {
-    "date": "サンプル",
+    "date": "2026-08-26",
     "region": "us",
     "flag": "flags/us.png",
     "regionLabel": "US",
-    "title": "FDA 21 CFR 175系条項の該当範囲チェックリスト（準備中）",
-    "body": "キャップ用接着剤・コーティングがどの条項に該当するか、実務者向けに整理したチェックリストを準備中。",
-    "link": ""
+    "title": "International Drug Scheduling; Single Convention on Narcotic Drugs; Convention on Psychotropic Substances; Clobromazolam (Phenazolam); Cychlorphine (N-Propionitrile Chlorphine); Desalkylgidazepam (Bromonordiazepam); Ethylbromazolam; Etomethazene (5-Methyl Etodesnitazene); Spirochlorphine (R6980); Etomidate; Medetomidine; Request for Comments",
+    "body": "The Food and Drug Administration (FDA or Agency) is providing interested persons with the opportunity to submit comments concerning abuse potential, actual abuse, medical usefulness, trafficking, and ",
+    "link": "https://www.federalregister.gov/documents/2026/08/26/2026-17380/international-drug-scheduling-single-convention-on-narcotic-drugs-convention-on-psychotropic"
+  },
+  {
+    "date": "2026-08-19",
+    "region": "us",
+    "flag": "flags/us.png",
+    "regionLabel": "US",
+    "title": "Gardenia Blue Interest Group; Filing of Color Additive Petition",
+    "body": "The Food and Drug Administration (FDA or we) is announcing that we have filed a petition, submitted by Gardenia Blue Interest Group (GBIG or petitioner), c/o Exponent, Inc., proposing that we amend ou",
+    "link": "https://www.federalregister.gov/documents/2026/08/19/2026-16944/gardenia-blue-interest-group-filing-of-color-additive-petition"
+  },
+  {
+    "date": "2026-08-19",
+    "region": "us",
+    "flag": "flags/us.png",
+    "regionLabel": "US",
+    "title": "Food Additives Permitted in Feed and Drinking Water of Animals; Chromium DL-methionine Chelate",
+    "body": "The Food and Drug Administration (FDA, we, or the Agency) is amending the regulations for food additives permitted in feed and drinking water of animals to provide for the safe use of chromium DL- met",
+    "link": "https://www.federalregister.gov/documents/2026/08/19/2026-16942/food-additives-permitted-in-feed-and-drinking-water-of-animals-chromium-dl-methionine-chelate"
+  },
+  {
+    "date": "2026-08-19",
+    "region": "us",
+    "flag": "flags/us.png",
+    "regionLabel": "US",
+    "title": "GNT USA, LLC.; Filing of Color Additive Petition",
+    "body": "The Food and Drug Administration (FDA or we) is announcing that we have filed a petition, submitted by GNT USA, LLC., c/o Exponent, Inc., proposing that we amend our color additive regulations to prov",
+    "link": "https://www.federalregister.gov/documents/2026/08/19/2026-16939/gnt-usa-llc-filing-of-color-additive-petition"
+  },
+  {
+    "date": "2026-08-17",
+    "region": "us",
+    "flag": "flags/us.png",
+    "regionLabel": "US",
+    "title": "Agency Information Collection Activities; Announcement of Office of Management and Budget Approvals",
+    "body": "The Food and Drug Administration (FDA) is publishing a list of information collections that have been approved by the Office of Management and Budget (OMB) under the Paperwork Reduction Act of 1995.",
+    "link": "https://www.federalregister.gov/documents/2026/08/17/2026-16716/agency-information-collection-activities-announcement-of-office-of-management-and-budget-approvals"
+  },
+  {
+    "date": "2026-08-12",
+    "region": "us",
+    "flag": "flags/us.png",
+    "regionLabel": "US",
+    "title": "Guide To Minimize Biological Hazards in Ready-to-Eat Fresh-Cut Produce; Guidance for Industry; Availability",
+    "body": "The Food and Drug Administration (FDA or we) is announcing the availability of a final guidance for industry entitled \"Guide to Minimize Biological Hazards in Ready-to-Eat Fresh-Cut Produce.\" This gui",
+    "link": "https://www.federalregister.gov/documents/2026/08/12/2026-16420/guide-to-minimize-biological-hazards-in-ready-to-eat-fresh-cut-produce-guidance-for-industry"
+  },
+  {
+    "date": "2026-08-11",
+    "region": "us",
+    "flag": "flags/us.png",
+    "regionLabel": "US",
+    "title": "Substances Generally Recognized as Safe",
+    "body": "The Food and Drug Administration (FDA or we) is proposing to require the submission of generally recognized as safe (GRAS) notices for the use of a human or animal food substance purported to be GRAS ",
+    "link": "https://www.federalregister.gov/documents/2026/08/11/2026-16296/substances-generally-recognized-as-safe"
+  },
+  {
+    "date": "2026-08-10",
+    "region": "us",
+    "flag": "flags/us.png",
+    "regionLabel": "US",
+    "title": "Determination of Regulatory Review Period for Purposes of Patent Extension; DAYVIGO",
+    "body": "The Food and Drug Administration (FDA or the Agency) has determined the regulatory review period for DAYVIGO and is publishing this notice of that determination as required by law. FDA has made the de",
+    "link": "https://www.federalregister.gov/documents/2026/08/10/2026-16246/determination-of-regulatory-review-period-for-purposes-of-patent-extension-dayvigo"
+  },
+  {
+    "date": "2026-08-05",
+    "region": "us",
+    "flag": "flags/us.png",
+    "regionLabel": "US",
+    "title": "Micro-Tracers, Inc.; Response to Objections and Requests for a Public Hearing",
+    "body": "The Food and Drug Administration (FDA or we) received objections and requests for a public hearing submitted by Buchanan Ingersoll & Rooney PC, on behalf of Micro-Tracers, Inc. (Micro-Tracers or objec",
+    "link": "https://www.federalregister.gov/documents/2026/08/05/2026-15920/micro-tracers-inc-response-to-objections-and-requests-for-a-public-hearing"
+  },
+  {
+    "date": "2026-08-03",
+    "region": "us",
+    "flag": "flags/us.png",
+    "regionLabel": "US",
+    "title": "Assessing the Irritation and Sensitization Potential of Transdermal and Topical Delivery Systems for ANDAs; Revised Draft Guidance for Industry; Availability",
+    "body": "The Food and Drug Administration (FDA or Agency) is announcing the availability of a revised draft guidance for industry titled \"Assessing the Irritation and Sensitization Potential of Transdermal and",
+    "link": "https://www.federalregister.gov/documents/2026/08/03/2026-15612/assessing-the-irritation-and-sensitization-potential-of-transdermal-and-topical-delivery-systems-for"
   }
 ]
