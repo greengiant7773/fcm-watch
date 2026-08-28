@@ -1,0 +1,64 @@
+{
+  "containers": [
+    {
+      "no": "01",
+      "name": "樹脂キャップ",
+      "basic": { "url": "https://note.com/fcm_watch/n/n07f997ae3e8e", "date": "2026-08-21" },
+      "premium": { "url": "https://note.com/fcm_watch/n/n071758a7cdc7", "date": "2026-08-28" }
+    },
+    {
+      "no": "02",
+      "name": "PETボトル",
+      "basic": { "url": "https://note.com/fcm_watch/n/n6f31d6ff9c10", "date": "2026-08-21" },
+      "premium": { "url": "https://note.com/fcm_watch/n/nb5baf7f1abf5", "date": "2026-08-28" }
+    },
+    {
+      "no": "03",
+      "name": "ガラスビン",
+      "basic": { "url": "https://note.com/fcm_watch/n/n3dbf85f6b9eb", "date": "2026-08-21" },
+      "premium": null
+    },
+    {
+      "no": "04",
+      "name": "カップ容器",
+      "basic": { "url": "https://note.com/fcm_watch/n/n1132f2c88753", "date": "2026-08-23" },
+      "premium": null
+    },
+    {
+      "no": "05",
+      "name": "缶詰",
+      "basic": { "url": "https://note.com/fcm_watch/n/n73af380871f4", "date": "2026-08-23" },
+      "premium": { "url": "https://note.com/fcm_watch/n/ne820ab5b470f", "date": "2026-08-28" }
+    },
+    {
+      "no": "06",
+      "name": "紙パック・乳製品ボトル",
+      "basic": { "url": "https://note.com/fcm_watch/n/n945435726c56", "date": "2026-08-23" },
+      "premium": null
+    },
+    {
+      "no": "07",
+      "name": "ツイストキャップ",
+      "basic": { "url": "https://note.com/fcm_watch/n/nec28ad769292", "date": "2026-08-23" },
+      "premium": { "url": "https://note.com/fcm_watch/n/na2780fad2d15", "date": "2026-08-28" }
+    },
+    {
+      "no": "08",
+      "name": "PPキャップ",
+      "basic": { "url": "https://note.com/fcm_watch/n/n24acd25f4116", "date": "2026-08-23" },
+      "premium": null
+    },
+    {
+      "no": "09",
+      "name": "PPボトル（樹脂）",
+      "basic": { "url": "https://note.com/fcm_watch/n/n2337f6dca223", "date": "2026-08-23" },
+      "premium": null
+    },
+    {
+      "no": "10",
+      "name": "オレフィンボトル",
+      "basic": { "url": "https://note.com/fcm_watch/n/nf08f4ab0c68a", "date": "2026-08-23" },
+      "premium": null
+    }
+  ]
+}

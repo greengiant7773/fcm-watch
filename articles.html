@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>記事一覧 | FCM WATCH</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink-navy: #0F2436;
+    --panel-navy: #123049;
+    --panel-navy-2: #16324A;
+    --grid-line: rgba(62,107,133,0.18);
+    --paper: #EDE8DA;
+    --paper-dim: #B9C2CA;
+    --brass: #C9A227;
+    --premium-yellow: #F2E4A2;
+    --line-soft: rgba(110,148,170,0.35);
+    --font-jp: "Noto Sans JP", sans-serif;
+    --font-mono: "Space Grotesk", var(--font-jp), sans-serif;
+  }
+  *{ box-sizing:border-box; }
+  body{
+    margin:0; background:var(--ink-navy); color:var(--paper);
+    font-family:var(--font-jp); line-height:1.7;
+    background-image:
+      linear-gradient(var(--grid-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+    background-size: 44px 44px;
+  }
+  a{ color:var(--brass); }
+  .wrap{ max-width:860px; margin:0 auto; padding:0 24px; }
+  header{ padding:28px 0 8px; border-bottom:1px solid var(--line-soft); margin-bottom:32px; }
+  .back{ font-size:13px; color:var(--paper-dim); text-decoration:none; }
+  .logo{ font-family:var(--font-mono); font-weight:700; font-size:18px; margin-top:10px; }
+  .logo span{ color:var(--brass); }
+  h1{ font-size:26px; margin:32px 0 6px; }
+  .lead{ color:var(--paper-dim); font-size:14px; margin:0 0 28px; }
+  h2{
+    font-size:18px; margin:44px 0 16px; padding-bottom:8px;
+    border-bottom:2px solid var(--brass); display:inline-block;
+  }
+  .container-card{
+    background:var(--panel-navy); border:1px solid var(--line-soft); border-radius:10px;
+    padding:18px 20px; margin-bottom:12px;
+  }
+  .container-head{
+    display:flex; align-items:baseline; gap:12px; margin-bottom:10px; flex-wrap:wrap;
+  }
+  .container-no{
+    font-family:var(--font-mono); font-weight:700; font-size:13px; color:var(--brass);
+  }
+  .container-name{ font-size:16px; font-weight:700; }
+  .links{ display:flex; flex-direction:column; gap:6px; }
+  .link-row{
+    display:flex; align-items:center; gap:10px; font-size:14px; flex-wrap:wrap;
+  }
+  .badge{
+    font-size:11px; font-weight:700; padding:2px 8px; border-radius:4px; letter-spacing:0.04em;
+    flex-shrink:0;
+  }
+  .badge-free{ background:rgba(110,148,170,0.25); color:var(--paper); }
+  .badge-paid{ background:var(--premium-yellow); color:var(--ink-navy); }
+  .badge-soon{ background:transparent; border:1px dashed var(--line-soft); color:var(--paper-dim); }
+  .link-row a{ text-decoration:none; }
+  .link-row a:hover{ text-decoration:underline; }
+  .link-row .soon-text{ color:var(--paper-dim); font-size:13px; }
+  .history-list{ list-style:none; margin:0; padding:0; }
+  .history-item{
+    display:flex; gap:16px; padding:10px 0; border-bottom:1px dashed var(--line-soft);
+    font-size:14px; align-items:baseline; flex-wrap:wrap;
+  }
+  .history-item:last-child{ border-bottom:none; }
+  .history-date{
+    font-family:var(--font-mono); font-size:12px; color:var(--paper-dim); flex-shrink:0; width:92px;
+  }
+  .history-item a{ text-decoration:none; }
+  .history-item a:hover{ text-decoration:underline; }
+  .note-cta{
+    margin-top:40px; background:linear-gradient(135deg, var(--panel-navy), var(--panel-navy-2));
+    border:1px solid var(--brass); border-radius:12px; padding:22px; font-size:14px;
+  }
+  .note-cta a{ font-weight:700; }
+  footer{ margin-top:48px; padding:24px 0; border-top:1px solid var(--line-soft); font-size:12px; color:var(--paper-dim); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="back" href="index.html">← FCM WATCHに戻る</a>
+    <div class="logo">FCM <span>WATCH</span> — 記事一覧</div>
+  </header>
+
+  <h1>容器別・輸出規制ノート</h1>
+  <p class="lead">
+    「海外に輸出できるか？」を容器・素材ごとに整理しています。
+    基礎編（無料）で全体像をつかみ、詳細版（有料・300円）で実データ・条文まで確認できます。
+  </p>
+
+  <h2>容器別インデックス</h2>
+  <div id="containers"></div>
+
+  <h2>note更新履歴</h2>
+  <ul class="history-list" id="history"></ul>
+
+  <div class="note-cta">
+    最新記事は <a href="https://note.com/fcm_watch" target="_blank" rel="noopener">note（fcm-watch.com）</a> で公開しています。
+    規制アップデートの解説記事も随時追加中です。
+  </div>
+</div>
+
+<footer class="wrap">
+  ※各記事は一般的な情報提供を目的としたものであり、法的助言ではありません。個別案件は一次情報・専門家にご確認ください。
+</footer>
+
+<script>
+  function el(html) {
+    const t = document.createElement("template");
+    t.innerHTML = html.trim();
+    return t.content.firstChild;
+  }
+
+  function render(data) {
+    const containersEl = document.getElementById("containers");
+    const historyEl = document.getElementById("history");
+    const history = [];
+
+    data.containers.forEach(c => {
+      const basicRow = c.basic
+        ? `<div class="link-row"><span class="badge badge-free">無料</span>
+             <a href="${c.basic.url}" target="_blank" rel="noopener">基礎編 — ${c.name}輸出について</a></div>`
+        : "";
+      const premiumRow = c.premium
+        ? `<div class="link-row"><span class="badge badge-paid">有料 300円</span>
+             <a href="${c.premium.url}" target="_blank" rel="noopener">詳細版 — 実データ・条文チェック</a></div>`
+        : `<div class="link-row"><span class="badge badge-soon">準備中</span>
+             <span class="soon-text">詳細版は今後公開予定</span></div>`;
+
+      containersEl.appendChild(el(`
+        <div class="container-card">
+          <div class="container-head">
+            <span class="container-no">#${c.no}</span>
+            <span class="container-name">${c.name}</span>
+          </div>
+          <div class="links">${basicRow}${premiumRow}</div>
+        </div>
+      `));
+
+      if (c.basic) history.push({ date: c.basic.date, title: `#${c.no} ${c.name}輸出について（基礎編・無料）`, url: c.basic.url });
+      if (c.premium) history.push({ date: c.premium.date, title: `#${c.no}【詳細版】${c.name}、海外に輸出できるか（有料）`, url: c.premium.url });
+    });
+
+    history.sort((a, b) => (a.date < b.date ? 1 : -1));
+    history.forEach(h => {
+      historyEl.appendChild(el(`
+        <li class="history-item">
+          <span class="history-date">${h.date}</span>
+          <a href="${h.url}" target="_blank" rel="noopener">${h.title}</a>
+        </li>
+      `));
+    });
+  }
+
+  fetch("articles.json")
+    .then(r => { if (!r.ok) throw new Error("fetch failed"); return r.json(); })
+    .then(render)
+    .catch(() => {
+      document.getElementById("containers").innerHTML =
+        '<p style="color:var(--paper-dim);font-size:14px;">記事データを読み込めませんでした。<a href="https://note.com/fcm_watch" target="_blank" rel="noopener">note</a>から直接ご覧ください。</p>';
+    });
+</script>
+</body>
+</html>
