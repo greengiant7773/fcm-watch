@@ -1,5 +1,23 @@
 [
   {
+    "date": "2026-08-28",
+    "region": "us",
+    "flag": "flags/us.png",
+    "regionLabel": "US",
+    "title": "Agency Information Collection Activities; Proposed Collection; Comment Request; Food Canning Establishment Registration, Process Filing, and Recordkeeping for Acidified Foods and Thermally Processed Low-Acid Foods in Hermetically Sealed Containers",
+    "body": "The Food and Drug Administration (FDA or Agency) is announcing an opportunity for public comment on the proposed collection of certain information by the Agency. Under the Paperwork Reduction Act of 1",
+    "link": "https://www.federalregister.gov/documents/2026/08/28/2026-17599/agency-information-collection-activities-proposed-collection-comment-request-food-canning"
+  },
+  {
+    "date": "2026-08-28",
+    "region": "us",
+    "flag": "flags/us.png",
+    "regionLabel": "US",
+    "title": "Compounding Animal Drugs From Bulk Drug Substances: Compounding Under CGMP in Federally-Registered Facilities; Draft Guidance for Industry; Availability; Agency Information Collection Activities; Proposed Collection; Comment Request",
+    "body": "The Food and Drug Administration (FDA, Agency, or we) is announcing the availability of a draft guidance for industry (GFI) #256B entitled \"Compounding Animal Drugs from Bulk Drug Substances: Compound",
+    "link": "https://www.federalregister.gov/documents/2026/08/28/2026-17580/compounding-animal-drugs-from-bulk-drug-substances-compounding-under-cgmp-in-federally-registered"
+  },
+  {
     "date": "2026-08-26",
     "region": "us",
     "flag": "flags/us.png",
@@ -70,23 +88,5 @@
     "title": "Determination of Regulatory Review Period for Purposes of Patent Extension; DAYVIGO",
     "body": "The Food and Drug Administration (FDA or the Agency) has determined the regulatory review period for DAYVIGO and is publishing this notice of that determination as required by law. FDA has made the de",
     "link": "https://www.federalregister.gov/documents/2026/08/10/2026-16246/determination-of-regulatory-review-period-for-purposes-of-patent-extension-dayvigo"
-  },
-  {
-    "date": "2026-08-05",
-    "region": "us",
-    "flag": "flags/us.png",
-    "regionLabel": "US",
-    "title": "Micro-Tracers, Inc.; Response to Objections and Requests for a Public Hearing",
-    "body": "The Food and Drug Administration (FDA or we) received objections and requests for a public hearing submitted by Buchanan Ingersoll & Rooney PC, on behalf of Micro-Tracers, Inc. (Micro-Tracers or objec",
-    "link": "https://www.federalregister.gov/documents/2026/08/05/2026-15920/micro-tracers-inc-response-to-objections-and-requests-for-a-public-hearing"
-  },
-  {
-    "date": "2026-08-03",
-    "region": "us",
-    "flag": "flags/us.png",
-    "regionLabel": "US",
-    "title": "Assessing the Irritation and Sensitization Potential of Transdermal and Topical Delivery Systems for ANDAs; Revised Draft Guidance for Industry; Availability",
-    "body": "The Food and Drug Administration (FDA or Agency) is announcing the availability of a revised draft guidance for industry titled \"Assessing the Irritation and Sensitization Potential of Transdermal and",
-    "link": "https://www.federalregister.gov/documents/2026/08/03/2026-15612/assessing-the-irritation-and-sensitization-potential-of-transdermal-and-topical-delivery-systems-for"
   }
 ]
