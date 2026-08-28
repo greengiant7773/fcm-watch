@@ -51,6 +51,14 @@ def format_article(item):
 
 
 def main():
+    # NOTE_SESSION_COOKIE が未設定の場合、ここで例外で落ちると
+    # 後続の「Commit and push」までスキップされ、サイトの規制フィード更新
+    # まで止まってしまう。未設定時は警告を出して投稿だけスキップする。
+    if not os.environ.get("NOTE_SESSION_COOKIE"):
+        print("[warn] NOTE_SESSION_COOKIE が未設定のため、note投稿をスキップします")
+        print("[warn] GitHubリポジトリの Settings > Secrets and variables > Actions で登録してください")
+        return
+
     updates = load_json(UPDATES_FILE, [])
     posted = load_json(POSTED_FILE, [])
     posted_keys = {p["key"] for p in posted}

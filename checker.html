@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>物質チェッカー | FCM WATCH</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink-navy: #0F2436;
+    --panel-navy: #123049;
+    --panel-navy-2: #16324A;
+    --grid-line: rgba(62,107,133,0.18);
+    --paper: #EDE8DA;
+    --paper-dim: #B9C2CA;
+    --brass: #C9A227;
+    --stamp-red: #C1440E;
+    --line-soft: rgba(110,148,170,0.35);
+    --font-jp: "Noto Sans JP", sans-serif;
+    --font-mono: "Space Grotesk", var(--font-jp), sans-serif;
+  }
+  *{ box-sizing:border-box; }
+  body{
+    margin:0; background:var(--ink-navy); color:var(--paper);
+    font-family:var(--font-jp); line-height:1.7;
+    background-image:
+      linear-gradient(var(--grid-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+    background-size: 44px 44px;
+  }
+  a{ color:var(--brass); }
+  .wrap{ max-width:760px; margin:0 auto; padding:0 24px; }
+  header{ padding:28px 0 8px; border-bottom:1px solid var(--line-soft); margin-bottom:32px; }
+  .back{ font-size:13px; color:var(--paper-dim); text-decoration:none; }
+  .logo{ font-family:var(--font-mono); font-weight:700; font-size:18px; margin-top:10px; }
+  .logo span{ color:var(--brass); }
+  h1{ font-size:26px; margin:32px 0 6px; }
+  .lead{ color:var(--paper-dim); font-size:14px; margin:0 0 24px; }
+  .search-box{
+    display:flex; gap:10px; margin-bottom:8px;
+  }
+  #q{
+    flex:1; padding:14px 16px; border-radius:8px; border:1px solid var(--line-soft);
+    background:var(--panel-navy); color:var(--paper); font-size:15px; font-family:var(--font-jp);
+  }
+  #q:focus{ outline:2px solid var(--brass); }
+  .hint{ font-size:12px; color:var(--paper-dim); margin-bottom:28px; }
+  .result{
+    background:var(--panel-navy); border:1px solid var(--line-soft); border-radius:10px;
+    padding:20px; margin-bottom:14px;
+  }
+  .result h3{ margin:0 0 4px; font-size:17px; }
+  .result .sub{ font-size:12px; color:var(--brass); font-family:var(--font-mono); margin-bottom:12px; }
+  .row{ display:flex; justify-content:space-between; font-size:14px; padding:6px 0; border-bottom:1px dashed var(--line-soft); }
+  .row:last-child{ border-bottom:none; }
+  .row .k{ color:var(--paper-dim); }
+  .row .v{ font-weight:700; }
+  .empty{ color:var(--paper-dim); font-size:14px; padding:20px 0; }
+  footer{ margin-top:40px; padding:24px 0; border-top:1px solid var(--line-soft); font-size:12px; color:var(--paper-dim); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="back" href="index.html">← FCM WATCHに戻る</a>
+    <div class="logo">FCM <span>WATCH</span> — 物質チェッカー</div>
+  </header>
+
+  <h1>使ってる添加剤、そのまま輸出できますか？</h1>
+  <p class="lead">
+    樹脂メーカーに聞いた添加剤の物質名（または CAS番号）を入力してください。
+    EU（Regulation 10/2011 Annex I）での扱いを表示します。
+  </p>
+
+  <div class="search-box">
+    <input id="q" type="text" placeholder="例：エルカ酸アミド、erucamide、112-84-5" autocomplete="off">
+  </div>
+  <p class="hint">今はサンプルとして3物質のみ登録しています。記事の更新に合わせて随時追加していきます。</p>
+
+  <div id="results"></div>
+</div>
+
+<footer class="wrap">
+  ※本ツールは一般的な情報提供を目的としたものであり、法的助言ではありません。個別の輸出案件については、最新の一次情報（EUR-Lex等）および専門家への確認をお願いします。
+</footer>
+
+<script>
+  // ------------------------------------------------------------------
+  // データはRegulation (EU) No 10/2011 Annex I（EUR-Lex公式テキスト）から
+  // 直接確認した実データ。追加する場合はこの配列に足していく。
+  // ------------------------------------------------------------------
+  const SUBSTANCES = [
+    {
+      names: ["エルカ酸アミド", "erucamide", "erucylamide"],
+      cas: "112-84-5",
+      fcm: "271",
+      region: "EU",
+      sml: "個別設定なし（一般則 60 mg/kg が適用）",
+      note: "樹脂キャップ・オレフィンボトルの滑剤として代表的な物質。"
+    },
+    {
+      names: ["オレアミド", "oleamide"],
+      cas: "301-02-0",
+      fcm: "335",
+      region: "EU",
+      sml: "個別設定なし（一般則 60 mg/kg が適用）",
+      note: "エルカ酸アミドと並んでよく使われる滑剤。"
+    },
+    {
+      names: ["オクタデシルエルカ酸アミド", "octadecylerucamide"],
+      cas: "10094-45-8",
+      fcm: "587",
+      region: "EU",
+      sml: "5 mg/kg（個別設定あり）",
+      note: "他の2つと違い、個別の厳しめのSMLが設定されている点に注意。"
+    },
+  ];
+
+  const qInput = document.getElementById("q");
+  const resultsEl = document.getElementById("results");
+
+  function normalize(s) {
+    return (s || "").toLowerCase().trim();
+  }
+
+  function render(query) {
+    const nq = normalize(query);
+    resultsEl.innerHTML = "";
+
+    if (!nq) {
+      resultsEl.innerHTML = `<p class="empty">物質名またはCAS番号を入力してください。</p>`;
+      return;
+    }
+
+    const hits = SUBSTANCES.filter(s =>
+      s.names.some(n => normalize(n).includes(nq)) || s.cas.includes(nq)
+    );
+
+    if (hits.length === 0) {
+      resultsEl.innerHTML = `
+        <div class="result">
+          <p class="empty">
+            登録データに一致するものがありませんでした。<br>
+            この物質については、EUR-Lex（Regulation 10/2011 Annex I）で個別に確認してください。
+            確認した内容を教えてもらえれば、このツールにも追加します。
+          </p>
+        </div>`;
+      return;
+    }
+
+    resultsEl.innerHTML = hits.map(s => `
+      <div class="result">
+        <h3>${s.names[0]}</h3>
+        <div class="sub">CAS ${s.cas} / FCM No.${s.fcm}</div>
+        <div class="row"><span class="k">対象国</span><span class="v">${s.region}</span></div>
+        <div class="row"><span class="k">SML（移行限度）</span><span class="v">${s.sml}</span></div>
+        <div class="row"><span class="k">補足</span><span class="v">${s.note}</span></div>
+      </div>
+    `).join("");
+  }
+
+  qInput.addEventListener("input", (e) => render(e.target.value));
+  render("");
+</script>
+</body>
+</html>
