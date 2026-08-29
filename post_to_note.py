@@ -20,6 +20,7 @@ FCM WATCH — 規制アップデートをnoteに自動投稿するスクリプ�
 import json
 import os
 import sys
+import time
 
 from note_client import NoteClient, NoteError
 
@@ -46,6 +47,7 @@ def make_key(item):
 
 
 TITLE_LIMIT = 100      # noteの上限は255文字。余裕をもって短くする
+POST_INTERVAL = 20     # 秒。連続投稿すると422で弾かれるため間隔を空ける
 
 
 def make_title(raw: str) -> str:
@@ -103,7 +105,12 @@ def main():
         return 1
 
     failed = []
-    for item in new_items:
+    for i, item in enumerate(new_items):
+        # noteは短時間の連続投稿を弾く（422「しばらく時間をあけて」）。
+        # 2件目以降は間隔を空ける。
+        if i > 0:
+            time.sleep(POST_INTERVAL)
+
         key = make_key(item)
         title, body = format_article(item)
         try:
@@ -122,7 +129,7 @@ def main():
         print(f"\n[error] {len(failed)}件が投稿できませんでした:")
         for t in failed:
             print(f"  - {t}")
-        print("\nセッションCookieの期限切れが最も多い原因です。"
+        print("\nCookieの期限切れか、noteの連続投稿制限が原因です。"
               "ブラウザでnoteにログインし直し、_note_session_v5 の値を"
               "NOTE_SESSION_COOKIE に再設定してください。")
         return 1
