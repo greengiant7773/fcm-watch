@@ -1,5 +1,23 @@
 [
   {
+    "date": "2026-08-31",
+    "region": "us",
+    "flag": "flags/us.png",
+    "regionLabel": "US",
+    "title": "Agency Information Collection Activities; Proposed Collection; Comment Request; Registration of Human Drug Compounding Outsourcing Facilities Under the Federal Food, Drug, and Cosmetic Act and Associated Fees",
+    "body": "The Food and Drug Administration (FDA or Agency) is announcing an opportunity for public comment on the proposed collection of certain information by the Agency. Under the Paperwork Reduction Act of 1",
+    "link": "https://www.federalregister.gov/documents/2026/08/31/2026-17676/agency-information-collection-activities-proposed-collection-comment-request-registration-of-human"
+  },
+  {
+    "date": "2026-08-31",
+    "region": "us",
+    "flag": "flags/us.png",
+    "regionLabel": "US",
+    "title": "Rahim Shafa; Denial of Hearing; Final Debarment Order",
+    "body": "The Food and Drug Administration (FDA or Agency) is denying a request for a hearing submitted by Rahim Shafa (Dr. Shafa) and is issuing an order under the Federal Food, Drug, and Cosmetic Act (FD&C Ac",
+    "link": "https://www.federalregister.gov/documents/2026/08/31/2026-17659/rahim-shafa-denial-of-hearing-final-debarment-order"
+  },
+  {
     "date": "2026-08-28",
     "region": "us",
     "flag": "flags/us.png",
@@ -70,23 +88,5 @@
     "title": "Guide To Minimize Biological Hazards in Ready-to-Eat Fresh-Cut Produce; Guidance for Industry; Availability",
     "body": "The Food and Drug Administration (FDA or we) is announcing the availability of a final guidance for industry entitled \"Guide to Minimize Biological Hazards in Ready-to-Eat Fresh-Cut Produce.\" This gui",
     "link": "https://www.federalregister.gov/documents/2026/08/12/2026-16420/guide-to-minimize-biological-hazards-in-ready-to-eat-fresh-cut-produce-guidance-for-industry"
-  },
-  {
-    "date": "2026-08-11",
-    "region": "us",
-    "flag": "flags/us.png",
-    "regionLabel": "US",
-    "title": "Substances Generally Recognized as Safe",
-    "body": "The Food and Drug Administration (FDA or we) is proposing to require the submission of generally recognized as safe (GRAS) notices for the use of a human or animal food substance purported to be GRAS ",
-    "link": "https://www.federalregister.gov/documents/2026/08/11/2026-16296/substances-generally-recognized-as-safe"
-  },
-  {
-    "date": "2026-08-10",
-    "region": "us",
-    "flag": "flags/us.png",
-    "regionLabel": "US",
-    "title": "Determination of Regulatory Review Period for Purposes of Patent Extension; DAYVIGO",
-    "body": "The Food and Drug Administration (FDA or the Agency) has determined the regulatory review period for DAYVIGO and is publishing this notice of that determination as required by law. FDA has made the de",
-    "link": "https://www.federalregister.gov/documents/2026/08/10/2026-16246/determination-of-regulatory-review-period-for-purposes-of-patent-extension-dayvigo"
   }
 ]
