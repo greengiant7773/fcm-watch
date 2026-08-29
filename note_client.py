@@ -9,13 +9,14 @@ note側の変更で動かなくなる前提で使うこと（失敗はメール�
   1. POST /api/v1/text_notes            … 空の下書きを作り、数値IDを得る
   2. POST /api/v1/text_notes/draft_save?id=<数値ID>&is_temp_saved=true
                                         … タイトルと本文を保存
-  3. POST /api/v1/text_notes/<数値ID>/publish  … 公開
+  3. PUT  /api/v1/text_notes/<数値ID>            … 公開
 
 ハマりどころ:
   - ヘッダーに X-Requested-With: XMLHttpRequest が必須。無いと422になる。
   - 本文はHTML。段落ごとに <p name="UUID" id="UUID"> が要る。
   - body_length はタグを除いた実テキストの文字数。
-  - "status" というキーは存在しない（旧実装はこれを送って422になっていた）。
+  - draft_save に "status" は不要。公開時のPUTでは逆に必須。
+  - /publish というエンドポイントは存在しない（404になる）。
 
 準備:
   ブラウザでnoteにログインし、Cookie の _note_session_v5 の値を
@@ -98,11 +99,56 @@ class NoteClient:
                   "index": False, "is_lead_form": False},
         )
 
-    def publish(self, note_id: int) -> dict:
-        """下書きを公開する。"""
-        return self._post(f"/v1/text_notes/{note_id}/publish", json={})
+    def publish(self, note_id: int, title: str, text: str,
+                hashtags=None, price: int = 0) -> dict:
+        """下書きを公開する。
 
-    def create_and_publish(self, title: str, text: str) -> dict:
+        公開は POST /publish ではなく PUT /v1/text_notes/<id>。
+        （/publish は404。ブラウザの通信を見て判明した）
+
+        price を 1以上にすると有料記事になる。その場合 free_body に
+        無料で読める部分、pay_body に有料部分を入れる必要があるが、
+        ここでは全文無料（price=0）を既定にしている。
+        """
+        html, length = to_note_html(text)
+        payload = {
+            "name": title,
+            "body_length": length,
+            "free_body": html,
+            "pay_body": "",
+            "status": "published",
+            "price": price,
+            "limited": False,
+            "index": False,
+            "disable_comment": False,
+            "hashtags": [{"hashtag": {"name": h}} for h in (hashtags or [])],
+            "image_keys": [],
+            "magazine_ids": [],
+            "magazine_keys": [],
+            "author_ids": [],
+            "send_notifications_flag": True,
+            "separator": "",
+            "slug": "",
+            "is_refund": False,
+            "exclude_from_creator_top": False,
+            "exclude_ai_learning_reward": False,
+            "circle_permissions": [],
+            "discount_campaigns": [],
+        }
+        resp = self.session.put(f"{NOTE_BASE}/v1/text_notes/{note_id}",
+                                json=payload)
+        if not resp.ok:
+            raise NoteError(
+                f"PUT /v1/text_notes/{note_id} が {resp.status_code}: "
+                f"{resp.text[:300]}")
+        try:
+            return resp.json()
+        except ValueError:
+            return {}
+
+    def create_and_publish(self, title: str, text: str,
+                           hashtags=None, price: int = 0) -> dict:
         note_id = self.create_empty_draft()
         self.save_draft(note_id, title, text)
-        return self.publish(note_id)
+        return self.publish(note_id, title, text,
+                            hashtags=hashtags, price=price)
