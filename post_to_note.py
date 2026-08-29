@@ -45,8 +45,33 @@ def make_key(item):
     return item.get("link") or f"{item.get('region')}|{item.get('title')}"
 
 
+TITLE_LIMIT = 100      # noteの上限は255文字。余裕をもって短くする
+
+
+def make_title(raw: str) -> str:
+    """noteのタイトル上限に収める。
+
+    FDAの規制タイトルは255文字を超えることがあり、そのまま送ると
+    422（タイトルは255文字以内）や500になる。
+    長い場合は語の途中で切らずに縮めて末尾に…を付ける。
+    """
+    prefix = "【規制アップデート】"
+    body = (raw or "").strip()
+    room = TITLE_LIMIT - len(prefix)
+    if len(body) <= room:
+        return prefix + body
+    cut = body[:room - 1]
+    # 単語の途中で切れないよう、直前の区切りまで戻す
+    for sep in ("; ", ", ", " "):
+        i = cut.rfind(sep)
+        if i > room * 0.6:
+            cut = cut[:i]
+            break
+    return prefix + cut.rstrip(" ;,") + "…"
+
+
 def format_article(item):
-    title = f"【規制アップデート】{item.get('title', '')}"
+    title = make_title(item.get("title", ""))
     body = (
         f"{item.get('regionLabel', '')}の規制アップデートです。\n\n"
         f"{item.get('body', '')}\n\n"
