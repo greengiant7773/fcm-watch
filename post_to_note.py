@@ -47,7 +47,7 @@ def make_key(item):
 
 
 TITLE_LIMIT = 100      # noteの上限は255文字。余裕をもって短くする
-POST_INTERVAL = 20     # 秒。連続投稿すると422で弾かれるため間隔を空ける
+POST_INTERVAL = 60     # 秒。連続投稿すると422で弾かれるため間隔を空ける
 
 
 def make_title(raw: str) -> str:

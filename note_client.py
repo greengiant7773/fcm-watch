@@ -25,6 +25,7 @@ note側の変更で動かなくなる前提で使うこと（失敗はメール�
 
 import os
 import re
+import time
 import uuid
 
 import requests
@@ -158,8 +159,26 @@ class NoteClient:
             return {}
 
     def create_and_publish(self, title: str, text: str,
-                           hashtags=None, price: int = 0) -> dict:
+                           hashtags=None, price: int = 0,
+                           retries: int = 3, wait: int = 90) -> dict:
+        """下書き作成→保存→公開まで通しで行う。
+
+        noteは連続投稿を422「しばらく時間をあけて」で弾く。
+        その場合は同じ下書きに対して待ってから公開だけ再試行する
+        （下書きを作り直さないので、ゴミ下書きが残らない）。
+        """
         note_id, note_key = self.create_empty_draft()
         self.save_draft(note_id, title, text)
-        return self.publish(note_id, title, text, note_key=note_key,
-                            hashtags=hashtags, price=price)
+        for attempt in range(retries + 1):
+            try:
+                return self.publish(note_id, title, text, note_key=note_key,
+                                    hashtags=hashtags, price=price)
+            except NoteError as e:
+                msg = str(e)
+                is_rate = ("しばらく時間" in msg) or (" 422" in msg)
+                if attempt < retries and is_rate:
+                    print(f"[wait] 連続投稿制限。{wait}秒待って再試行 "
+                          f"({attempt + 1}/{retries})")
+                    time.sleep(wait)
+                    continue
+                raise
