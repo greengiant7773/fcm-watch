@@ -80,14 +80,19 @@ class NoteClient:
         except ValueError:
             return {}
 
-    def create_empty_draft(self) -> int:
-        """空の下書きを作り、数値IDを返す。"""
+    def create_empty_draft(self):
+        """空の下書きを作り、(数値ID, noteキー) を返す。
+
+        公開時の slug に "slug-<noteキー>" が必要なので、キーも返す。
+        noteキーは n から始まる英数字（例: nacbb4756185d）で、数値IDとは別物。
+        """
         data = self._post("/v1/text_notes", json={})
         d = data.get("data", data)
         note_id = d.get("id") or d.get("note_id")
+        note_key = d.get("key")
         if not note_id:
             raise NoteError(f"下書きIDが取得できなかった: {str(data)[:300]}")
-        return int(note_id)
+        return int(note_id), note_key
 
     def save_draft(self, note_id: int, title: str, text: str) -> None:
         """下書きにタイトルと本文を保存する。"""
@@ -100,7 +105,7 @@ class NoteClient:
         )
 
     def publish(self, note_id: int, title: str, text: str,
-                hashtags=None, price: int = 0) -> dict:
+                note_key: str = "", hashtags=None, price: int = 0) -> dict:
         """下書きを公開する。
 
         公開は POST /publish ではなく PUT /v1/text_notes/<id>。
@@ -111,29 +116,35 @@ class NoteClient:
         ここでは全文無料（price=0）を既定にしている。
         """
         html, length = to_note_html(text)
+        # ブラウザが実際に送っている形に厳密に合わせる。
+        # separator を "" に、slug を "" にすると 500 になるので注意。
         payload = {
-            "name": title,
-            "body_length": length,
-            "free_body": html,
-            "pay_body": "",
-            "status": "published",
-            "price": price,
-            "limited": False,
-            "index": False,
-            "disable_comment": False,
-            "hashtags": [{"hashtag": {"name": h}} for h in (hashtags or [])],
-            "image_keys": [],
-            "magazine_ids": [],
-            "magazine_keys": [],
             "author_ids": [],
-            "send_notifications_flag": True,
-            "separator": "",
-            "slug": "",
-            "is_refund": False,
+            "body_length": length,
+            "disable_comment": False,
             "exclude_from_creator_top": False,
             "exclude_ai_learning_reward": False,
+            "free_body": html,
+            "hashtags": [{"hashtag": {"name": h}} for h in (hashtags or [])],
+            "image_keys": [],
+            "index": False,
+            "is_refund": False,
+            "limited": False,
+            "magazine_ids": [],
+            "magazine_keys": [],
+            "name": title,
+            "pay_body": "",
+            "price": price,
+            "send_notifications_flag": True,
+            "separator": None,
+            "slug": f"slug-{note_key}" if note_key else "",
+            "status": "published",
             "circle_permissions": [],
             "discount_campaigns": [],
+            "lead_form": {"is_active": False, "consent_url": ""},
+            "line_add_friend": {"is_active": False, "keyword": "",
+                                "add_friend_url": ""},
+            "pro_coupon_keys": [],
         }
         resp = self.session.put(f"{NOTE_BASE}/v1/text_notes/{note_id}",
                                 json=payload)
@@ -148,7 +159,7 @@ class NoteClient:
 
     def create_and_publish(self, title: str, text: str,
                            hashtags=None, price: int = 0) -> dict:
-        note_id = self.create_empty_draft()
+        note_id, note_key = self.create_empty_draft()
         self.save_draft(note_id, title, text)
-        return self.publish(note_id, title, text,
+        return self.publish(note_id, title, text, note_key=note_key,
                             hashtags=hashtags, price=price)
