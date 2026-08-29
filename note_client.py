@@ -1,75 +1,108 @@
 """
 note.com 非公式APIクライアント
 
-note.comは公式の投稿APIを公開していない（公式ヘルプに「公開予定は未定」と明記）。
-このモジュールは、有志が解析した非公式のエンドポイントを利用する。
+note.comは公式の投稿APIを公開していない。
+以下は 2026/08 時点で、ブラウザの実際の通信を観察して判明した仕様。
+note側の変更で動かなくなる前提で使うこと（失敗はメール通知される）。
 
-【重要】非公式のため、以下のリスクを理解した上で使うこと：
-  - note側の仕様変更で予告なく動かなくなる可能性がある
-  - 利用規約上グレーな行為であり、最悪アカウント停止のリスクがある
-  - エンドポイントの正確な仕様が公開されていないため、動作未確認。
-    422エラー等が出た場合はpayloadの調整が必要になる可能性が高い
+投稿の流れ（ブラウザと同じ手順を踏む必要がある）:
+  1. POST /api/v1/text_notes            … 空の下書きを作り、数値IDを得る
+  2. POST /api/v1/text_notes/draft_save?id=<数値ID>&is_temp_saved=true
+                                        … タイトルと本文を保存
+  3. POST /api/v1/text_notes/<数値ID>/publish  … 公開
 
-【認証方法】
-公式OAuth等は無いため、ログイン済みブラウザのセッションCookieを流用する。
-取得方法：
-  1. ブラウザでnote.comにログインした状態でDevTools（検証）を開く
-  2. Application（Chrome）/ Storage（Firefox）タブ → Cookies → note.com
-  3. セッションを保持しているCookie（過去の実装例では `_note_session_v5` という
-     名前のことが多いが、現在の名前は自分の環境で確認すること）の値をコピー
-  4. その値をGitHub Secretsに `NOTE_SESSION_COOKIE` として保存する
-     （Cookie名が違っていたらこのファイルのCOOKIE_NAMEを書き換える）
+ハマりどころ:
+  - ヘッダーに X-Requested-With: XMLHttpRequest が必須。無いと422になる。
+  - 本文はHTML。段落ごとに <p name="UUID" id="UUID"> が要る。
+  - body_length はタグを除いた実テキストの文字数。
+  - "status" というキーは存在しない（旧実装はこれを送って422になっていた）。
 
-このCookieは自分のログイン情報そのものなので、コードに直接書いたり
-リポジトリにコミットしたりしないこと。必ず環境変数 / GitHub Secrets経由で渡す。
+準備:
+  ブラウザでnoteにログインし、Cookie の _note_session_v5 の値を
+  GitHub Secrets に NOTE_SESSION_COOKIE として保存する。
 """
 
 import os
+import re
+import uuid
+
 import requests
 
 NOTE_BASE = "https://note.com/api"
-COOKIE_NAME = "_note_session_v5"  # 実際の名前と違ったらここを書き換える
+COOKIE_NAME = "_note_session_v5"
+
+
+def to_note_html(text: str) -> tuple[str, int]:
+    """プレーンテキストをnoteの本文HTMLに変換し、(html, 文字数) を返す。
+
+    空行で段落を分ける。各段落にUUIDを振るのがnoteの仕様。
+    """
+    blocks = [b.strip() for b in re.split(r"\n\s*\n", text.strip()) if b.strip()]
+    parts = []
+    for b in blocks:
+        u = str(uuid.uuid4())
+        inner = b.replace("\n", "<br>")
+        parts.append(f'<p name="{u}" id="{u}">{inner}</p>')
+    html = "".join(parts)
+    length = len(re.sub(r"<[^>]+>", "", html))
+    return html, length
+
+
+class NoteError(RuntimeError):
+    """note API がエラーを返したときに投げる。メール通知の判定に使う。"""
 
 
 class NoteClient:
     def __init__(self, session_cookie=None):
         session_cookie = session_cookie or os.environ.get("NOTE_SESSION_COOKIE")
         if not session_cookie:
-            raise ValueError("NOTE_SESSION_COOKIE が設定されていない")
+            raise NoteError("NOTE_SESSION_COOKIE が設定されていない")
 
         self.session = requests.Session()
         self.session.cookies.set(COOKIE_NAME, session_cookie, domain=".note.com")
         self.session.headers.update({
-            "User-Agent": "Mozilla/5.0 (compatible; fcm-watch-bot/1.0)",
+            "User-Agent": ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+                           "AppleWebKit/537.36 (KHTML, like Gecko) "
+                           "Chrome/128.0.0.0 Safari/537.36"),
             "Content-Type": "application/json",
+            "X-Requested-With": "XMLHttpRequest",
+            "Origin": "https://editor.note.com",
+            "Referer": "https://editor.note.com/",
         })
 
-    def create_draft(self, title, body, price=0):
-        """下書きを作成する。price=0なら無料、1以上なら有料記事として作成を試みる。
-
-        note側の有料記事APIの正確なフィールド名は非公開で確認できていないため、
-        `price` というキー名は推測。動かない場合はレスポンス内容を見て調整する。
-        """
-        payload = {"name": title, "body": body, "status": "draft"}
-        if price > 0:
-            payload["price"] = price
-        resp = self.session.post(f"{NOTE_BASE}/v1/text_notes", json=payload)
+    def _post(self, path, **kw):
+        resp = self.session.post(f"{NOTE_BASE}{path}", **kw)
         if not resp.ok:
-            print(f"[error] create_draft failed: {resp.status_code} {resp.text[:300]}")
-        resp.raise_for_status()
-        return resp.json()
+            raise NoteError(f"POST {path} が {resp.status_code}: {resp.text[:300]}")
+        try:
+            return resp.json()
+        except ValueError:
+            return {}
 
-    def publish(self, note_key):
+    def create_empty_draft(self) -> int:
+        """空の下書きを作り、数値IDを返す。"""
+        data = self._post("/v1/text_notes", json={})
+        d = data.get("data", data)
+        note_id = d.get("id") or d.get("note_id")
+        if not note_id:
+            raise NoteError(f"下書きIDが取得できなかった: {str(data)[:300]}")
+        return int(note_id)
+
+    def save_draft(self, note_id: int, title: str, text: str) -> None:
+        """下書きにタイトルと本文を保存する。"""
+        html, length = to_note_html(text)
+        self._post(
+            "/v1/text_notes/draft_save",
+            params={"id": note_id, "is_temp_saved": "true"},
+            json={"body": html, "body_length": length, "name": title,
+                  "index": False, "is_lead_form": False},
+        )
+
+    def publish(self, note_id: int) -> dict:
         """下書きを公開する。"""
-        resp = self.session.post(f"{NOTE_BASE}/v2/notes/{note_key}/publish")
-        if not resp.ok:
-            print(f"[error] publish failed: {resp.status_code} {resp.text[:300]}")
-        resp.raise_for_status()
-        return resp.json()
+        return self._post(f"/v1/text_notes/{note_id}/publish", json={})
 
-    def create_and_publish(self, title, body, price=0):
-        draft = self.create_draft(title, body, price=price)
-        note_key = draft.get("data", {}).get("key") or draft.get("key")
-        if not note_key:
-            raise RuntimeError(f"note_keyが取得できなかった。レスポンス: {draft}")
-        return self.publish(note_key)
+    def create_and_publish(self, title: str, text: str) -> dict:
+        note_id = self.create_empty_draft()
+        self.save_draft(note_id, title, text)
+        return self.publish(note_id)

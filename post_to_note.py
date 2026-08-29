@@ -9,17 +9,23 @@ FCM WATCH — 規制アップデートをnoteに自動投稿するスクリプ�
 
 このスクリプトは monitor.py の後に実行する想定
 （GitHub Actionsのワークフローで直列に呼び出す）。
+
+失敗の扱い:
+  1件でも投稿に失敗したら、最後に終了コード1で終わる。
+  ワークフローが赤くなり、GitHubから失敗通知メールが届く。
+  （黙って失敗し続けるのを防ぐため。以前は成功扱いで気づけなかった）
+  ただし記録の保存は先に済ませるので、成功した分は二重投稿にならない。
 """
 
 import json
 import os
+import sys
 
-from note_client import NoteClient
+from note_client import NoteClient, NoteError
 
 UPDATES_FILE = "updates.json"
 POSTED_FILE = "posted_to_note.json"
 HP_URL = "https://fcm-watch.com"
-ARTICLE_PRICE = 300  # 円。0にすると無料公開になる
 
 
 def load_json(path, default):
@@ -51,13 +57,10 @@ def format_article(item):
 
 
 def main():
-    # NOTE_SESSION_COOKIE が未設定の場合、ここで例外で落ちると
-    # 後続の「Commit and push」までスキップされ、サイトの規制フィード更新
-    # まで止まってしまう。未設定時は警告を出して投稿だけスキップする。
     if not os.environ.get("NOTE_SESSION_COOKIE"):
         print("[warn] NOTE_SESSION_COOKIE が未設定のため、note投稿をスキップします")
-        print("[warn] GitHubリポジトリの Settings > Secrets and variables > Actions で登録してください")
-        return
+        print("[warn] Settings > Secrets and variables > Actions で登録してください")
+        return 0
 
     updates = load_json(UPDATES_FILE, [])
     posted = load_json(POSTED_FILE, [])
@@ -66,23 +69,41 @@ def main():
     new_items = [u for u in updates if make_key(u) not in posted_keys]
     if not new_items:
         print("[info] 新着なし、投稿スキップ")
-        return
+        return 0
 
-    client = NoteClient()
+    try:
+        client = NoteClient()
+    except NoteError as e:
+        print(f"[error] noteクライアントを作れなかった: {e}")
+        return 1
 
+    failed = []
     for item in new_items:
         key = make_key(item)
         title, body = format_article(item)
         try:
-            result = client.create_and_publish(title, body, price=ARTICLE_PRICE)
-            print(f"[ok] posted (price={ARTICLE_PRICE}): {title}")
+            client.create_and_publish(title, body)
+            print(f"[ok] 投稿しました: {title}")
             posted.append({"key": key, "title": title})
         except Exception as e:
-            # 1件失敗しても他の投稿は続ける。次回実行時にリトライされる。
-            print(f"[error] failed to post '{title}': {e}")
+            # 1件失敗しても他は続ける。次回実行時にリトライされる。
+            print(f"[error] 投稿に失敗: '{title}': {e}")
+            failed.append(title)
 
+    # 成功した分は先に記録する（ここで落ちると二重投稿になるため）
     save_json(POSTED_FILE, posted)
+
+    if failed:
+        print(f"\n[error] {len(failed)}件が投稿できませんでした:")
+        for t in failed:
+            print(f"  - {t}")
+        print("\nセッションCookieの期限切れが最も多い原因です。"
+              "ブラウザでnoteにログインし直し、_note_session_v5 の値を"
+              "NOTE_SESSION_COOKIE に再設定してください。")
+        return 1
+
+    return 0
 
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())
