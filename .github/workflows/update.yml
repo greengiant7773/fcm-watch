@@ -52,7 +52,8 @@ jobs:
         run: |
           git config user.name "fcm-watch-bot"
           git config user.email "actions@users.noreply.github.com"
-          git add updates.json drafted_months.json
+          git add updates.json
+          if [ -f drafted_months.json ]; then git add drafted_months.json; fi
           git diff --staged --quiet || git commit -m "chore: update regulation feed"
           git push
 
