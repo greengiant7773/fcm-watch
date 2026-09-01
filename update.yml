@@ -2,9 +2,21 @@ name: Update regulation feed
 
 on:
   schedule:
-    # 毎日 21:00 UTC = 日本時間 朝6:00 頃に実行
+    # 毎日 21:00 UTC = 日本時間 朝6:00 頃。規制フィードの収集のみ。
     - cron: "0 21 * * *"
-  workflow_dispatch: {}  # 手動実行ボタンも使えるようにしておく
+    # 毎月28日 22:00 UTC = 日本時間 翌朝7:00 頃。月次まとめの下書きを作る。
+    # 28日にしておけば、どの月でも必ず1回は当たる。
+    - cron: "0 22 28 * *"
+  workflow_dispatch:
+    inputs:
+      make_draft:
+        description: "月次まとめの下書きも作る"
+        type: boolean
+        default: false
+      month:
+        description: "対象月（YYYY-MM、空なら今月）"
+        type: string
+        default: ""
 
 permissions:
   contents: write
@@ -25,30 +37,29 @@ jobs:
       - name: Run monitor script
         run: python monitor.py
 
-      # 失敗しても後続のコミットは行う。
-      # 成功した分の記録を残さないと次回二重投稿になるため。
-      - name: Post new updates to note
-        id: note
+      # 月次まとめの「下書き」を作る。公開はしない。
+      # 規制の一次情報をそのまま出しても商品にならないので、
+      # 人が「どの容器に効くか」を書き足してから手動で公開する。
+      - name: Create monthly draft on note
+        id: draft
         continue-on-error: true
+        if: github.event.schedule == '0 22 28 * *' || inputs.make_draft
         env:
           NOTE_SESSION_COOKIE: ${{ secrets.NOTE_SESSION_COOKIE }}
-        run: python post_to_note.py
+        run: python monthly_draft.py ${{ inputs.month }}
 
       - name: Commit and push if changed
         run: |
           git config user.name "fcm-watch-bot"
           git config user.email "actions@users.noreply.github.com"
-          git add updates.json posted_to_note.json
+          git add updates.json drafted_months.json
           git diff --staged --quiet || git commit -m "chore: update regulation feed"
           git push
 
-      # note投稿が失敗していたらここでジョブを赤くする。
-      # GitHubから失敗通知メールが届き、黙って止まるのを防ぐ。
-      - name: Fail if note posting failed
-        if: steps.note.outcome == 'failure'
+      # 下書き作成が失敗していたらジョブを赤くして通知を飛ばす。
+      # Cookieの期限切れが最も多い原因。
+      - name: Fail if draft creation failed
+        if: steps.draft.outcome == 'failure'
         run: |
-          echo "::error::noteへの投稿に失敗しました。"
-          echo "セッションCookieの期限切れが最も多い原因です。"
-          echo "ブラウザでnoteにログインし直し、_note_session_v5 の値を"
-          echo "Secrets の NOTE_SESSION_COOKIE に再設定してください。"
+          echo "::error::noteの下書き作成に失敗しました。Cookieの期限切れが最も多い原因です。"
           exit 1
