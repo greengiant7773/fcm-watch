@@ -1,5 +1,41 @@
 [
   {
+    "date": "2026-09-25",
+    "region": "us",
+    "flag": "flags/us.png",
+    "regionLabel": "US",
+    "title": "Reauthorization of the Biosimilar User Fee Act; Public Meeting; Request for Comments",
+    "body": "The Food and Drug Administration (FDA, the Agency, or we) is hosting a hybrid public meeting to discuss proposed recommendations for the reauthorization of the Biosimilar User Fee Act (BsUFA) for fisc",
+    "link": "https://www.federalregister.gov/documents/2026/09/25/2026-19660/reauthorization-of-the-biosimilar-user-fee-act-public-meeting-request-for-comments"
+  },
+  {
+    "date": "2026-09-25",
+    "region": "us",
+    "flag": "flags/us.png",
+    "regionLabel": "US",
+    "title": "Filing of Color Additive Petition From Doehler GmbH; Request To Amend the Color Additive Regulations To Provide for the Safe Use of Calcium Sulfate in Various Foods at Levels Consistent With Good Manufacturing Practice",
+    "body": "The Food and Drug Administration (FDA or we) is announcing that we have filed a color additive petition, submitted by Doehler GmbH, c/o Hogan Lovells Cadwalader, proposing that we amend our color addi",
+    "link": "https://www.federalregister.gov/documents/2026/09/25/2026-19658/filing-of-color-additive-petition-from-doehler-gmbh-request-to-amend-the-color-additive-regulations"
+  },
+  {
+    "date": "2026-09-25",
+    "region": "us",
+    "flag": "flags/us.png",
+    "regionLabel": "US",
+    "title": "Food Additives Permitted for Direct Addition to Food for Human Consumption; Vitamin D2 Inactive Bakers Yeast",
+    "body": "The Food and Drug Administration (FDA or we) is amending the food additive regulations to provide for the safe use of vitamin D2 inactive bakers yeast as a source of vitamin D2 in specific food catego",
+    "link": "https://www.federalregister.gov/documents/2026/09/25/2026-19656/food-additives-permitted-for-direct-addition-to-food-for-human-consumption-vitamin-d2-inactive"
+  },
+  {
+    "date": "2026-09-25",
+    "region": "us",
+    "flag": "flags/us.png",
+    "regionLabel": "US",
+    "title": "Jeffrey Thies: Final Debarment Order",
+    "body": "The Food and Drug Administration (FDA or the Agency) is issuing an order under the Federal Food, Drug, and Cosmetic Act (FD&C Act) debarring Jeffrey Thies for a period of 10 years from importing or of",
+    "link": "https://www.federalregister.gov/documents/2026/09/25/2026-19655/jeffrey-thies-final-debarment-order"
+  },
+  {
     "date": "2026-09-23",
     "region": "us",
     "flag": "flags/us.png",
@@ -52,32 +88,5 @@
     "title": "Rahim Shafa; Denial of Hearing; Final Debarment Order",
     "body": "The Food and Drug Administration (FDA or Agency) is denying a request for a hearing submitted by Rahim Shafa (Dr. Shafa) and is issuing an order under the Federal Food, Drug, and Cosmetic Act (FD&C Ac",
     "link": "https://www.federalregister.gov/documents/2026/08/31/2026-17659/rahim-shafa-denial-of-hearing-final-debarment-order"
-  },
-  {
-    "date": "2026-08-28",
-    "region": "us",
-    "flag": "flags/us.png",
-    "regionLabel": "US",
-    "title": "Agency Information Collection Activities; Proposed Collection; Comment Request; Food Canning Establishment Registration, Process Filing, and Recordkeeping for Acidified Foods and Thermally Processed Low-Acid Foods in Hermetically Sealed Containers",
-    "body": "The Food and Drug Administration (FDA or Agency) is announcing an opportunity for public comment on the proposed collection of certain information by the Agency. Under the Paperwork Reduction Act of 1",
-    "link": "https://www.federalregister.gov/documents/2026/08/28/2026-17599/agency-information-collection-activities-proposed-collection-comment-request-food-canning"
-  },
-  {
-    "date": "2026-08-28",
-    "region": "us",
-    "flag": "flags/us.png",
-    "regionLabel": "US",
-    "title": "Compounding Animal Drugs From Bulk Drug Substances: Compounding Under CGMP in Federally-Registered Facilities; Draft Guidance for Industry; Availability; Agency Information Collection Activities; Proposed Collection; Comment Request",
-    "body": "The Food and Drug Administration (FDA, Agency, or we) is announcing the availability of a draft guidance for industry (GFI) #256B entitled \"Compounding Animal Drugs from Bulk Drug Substances: Compound",
-    "link": "https://www.federalregister.gov/documents/2026/08/28/2026-17580/compounding-animal-drugs-from-bulk-drug-substances-compounding-under-cgmp-in-federally-registered"
-  },
-  {
-    "date": "2026-08-26",
-    "region": "us",
-    "flag": "flags/us.png",
-    "regionLabel": "US",
-    "title": "International Drug Scheduling; Single Convention on Narcotic Drugs; Convention on Psychotropic Substances; Clobromazolam (Phenazolam); Cychlorphine (N-Propionitrile Chlorphine); Desalkylgidazepam (Bromonordiazepam); Ethylbromazolam; Etomethazene (5-Methyl Etodesnitazene); Spirochlorphine (R6980); Etomidate; Medetomidine; Request for Comments",
-    "body": "The Food and Drug Administration (FDA or Agency) is providing interested persons with the opportunity to submit comments concerning abuse potential, actual abuse, medical usefulness, trafficking, and ",
-    "link": "https://www.federalregister.gov/documents/2026/08/26/2026-17380/international-drug-scheduling-single-convention-on-narcotic-drugs-convention-on-psychotropic"
   }
 ]
