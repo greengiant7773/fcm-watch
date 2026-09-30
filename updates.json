@@ -1,5 +1,14 @@
 [
   {
+    "date": "2026-09-29",
+    "region": "us",
+    "flag": "flags/us.png",
+    "regionLabel": "US",
+    "title": "Agency Information Collection Activities; Submission for Office of Management and Budget Review; Comment Request; Submission of Petitions: Food Additive, Color Additive (Including Labeling), Submission of Information to a Master File in Support of Petitions; and Electronic Submission Using Food and Drug Administration Form 3503",
+    "body": "The Food and Drug Administration (FDA) is announcing that a proposed collection of information has been submitted to the Office of Management and Budget (OMB) for review and clearance under the Paperw",
+    "link": "https://www.federalregister.gov/documents/2026/09/29/2026-19850/agency-information-collection-activities-submission-for-office-of-management-and-budget-review"
+  },
+  {
     "date": "2026-09-25",
     "region": "us",
     "flag": "flags/us.png",
@@ -79,14 +88,5 @@
     "title": "Agency Information Collection Activities; Proposed Collection; Comment Request; Registration of Human Drug Compounding Outsourcing Facilities Under the Federal Food, Drug, and Cosmetic Act and Associated Fees",
     "body": "The Food and Drug Administration (FDA or Agency) is announcing an opportunity for public comment on the proposed collection of certain information by the Agency. Under the Paperwork Reduction Act of 1",
     "link": "https://www.federalregister.gov/documents/2026/08/31/2026-17676/agency-information-collection-activities-proposed-collection-comment-request-registration-of-human"
-  },
-  {
-    "date": "2026-08-31",
-    "region": "us",
-    "flag": "flags/us.png",
-    "regionLabel": "US",
-    "title": "Rahim Shafa; Denial of Hearing; Final Debarment Order",
-    "body": "The Food and Drug Administration (FDA or Agency) is denying a request for a hearing submitted by Rahim Shafa (Dr. Shafa) and is issuing an order under the Federal Food, Drug, and Cosmetic Act (FD&C Ac",
-    "link": "https://www.federalregister.gov/documents/2026/08/31/2026-17659/rahim-shafa-denial-of-hearing-final-debarment-order"
   }
 ]
