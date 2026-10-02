@@ -1,5 +1,14 @@
 [
   {
+    "date": "2026-10-01",
+    "region": "us",
+    "flag": "flags/us.png",
+    "regionLabel": "US",
+    "title": "Request for Nominations for Individuals and Consumer Organizations for Advisory Committees",
+    "body": "The Food and Drug Administration (FDA or Agency) is requesting that any consumer organizations interested in participating in the selection of voting and/or nonvoting consumer representatives to serve",
+    "link": "https://www.federalregister.gov/documents/2026/10/01/2026-20065/request-for-nominations-for-individuals-and-consumer-organizations-for-advisory-committees"
+  },
+  {
     "date": "2026-09-29",
     "region": "us",
     "flag": "flags/us.png",
