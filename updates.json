@@ -1,5 +1,32 @@
 [
   {
+    "date": "2026-10-06",
+    "region": "us",
+    "flag": "flags/us.png",
+    "regionLabel": "US",
+    "title": "Medical Devices; Exemptions From Premarket Notification: Class II Devices; Certain Clinical Toxicology Test Systems",
+    "body": "The Food and Drug Administration (FDA) is publishing an order setting forth its final determination to exempt certain class II clinical toxicology test systems from premarket notification (510(k)) req",
+    "link": "https://www.federalregister.gov/documents/2026/10/06/2026-20448/medical-devices-exemptions-from-premarket-notification-class-ii-devices-certain-clinical-toxicology"
+  },
+  {
+    "date": "2026-10-06",
+    "region": "us",
+    "flag": "flags/us.png",
+    "regionLabel": "US",
+    "title": "Medical Devices; Immunology and Microbiology Devices; Classification of the High Throughput DNA Sequencing for Hereditary Cancer Predisposition Assessment Test System",
+    "body": "The Food and Drug Administration (FDA) is classifying the high throughput DNA sequencing for hereditary cancer predisposition assessment test system into class II (special controls). The special contr",
+    "link": "https://www.federalregister.gov/documents/2026/10/06/2026-20443/medical-devices-immunology-and-microbiology-devices-classification-of-the-high-throughput-dna"
+  },
+  {
+    "date": "2026-10-06",
+    "region": "us",
+    "flag": "flags/us.png",
+    "regionLabel": "US",
+    "title": "Design and Safety Considerations for Clinical Trials Involving Ibogaine Drug Products; Request for Information",
+    "body": "The Food and Drug Administration (FDA or the Agency) is describing the approaches it is considering for the design of early- phase clinical trials of ibogaine drug products and is opening a public doc",
+    "link": "https://www.federalregister.gov/documents/2026/10/06/2026-20427/design-and-safety-considerations-for-clinical-trials-involving-ibogaine-drug-products-request-for"
+  },
+  {
     "date": "2026-10-01",
     "region": "us",
     "flag": "flags/us.png",
@@ -61,32 +88,5 @@
     "title": "Sanjay Kumar: Final Debarment Order",
     "body": "The Food and Drug Administration (FDA or the Agency) is issuing an order under the Federal Food, Drug, and Cosmetic Act (FD&C Act) debarring Sanjay Kumar for a period of 5 years from importing or offe",
     "link": "https://www.federalregister.gov/documents/2026/09/23/2026-19419/sanjay-kumar-final-debarment-order"
-  },
-  {
-    "date": "2026-09-22",
-    "region": "us",
-    "flag": "flags/us.png",
-    "regionLabel": "US",
-    "title": "Nonclinical Testing Terminology",
-    "body": "The Food and Drug Administration (FDA, Agency, or we) is issuing a direct final rule that substitutes references to \"animal\" tests or studies with \"nonclinical\" tests or studies, adds a definition of ",
-    "link": "https://www.federalregister.gov/documents/2026/09/22/2026-19350/nonclinical-testing-terminology"
-  },
-  {
-    "date": "2026-09-22",
-    "region": "us",
-    "flag": "flags/us.png",
-    "regionLabel": "US",
-    "title": "Nonclinical Testing Terminology",
-    "body": "The Food and Drug Administration (FDA, Agency, or we) is proposing to substitute references to \"animal\" tests or studies with \"nonclinical\" tests or studies, add a definition of the terms \"nonclinical",
-    "link": "https://www.federalregister.gov/documents/2026/09/22/2026-19349/nonclinical-testing-terminology"
-  },
-  {
-    "date": "2026-09-21",
-    "region": "us",
-    "flag": "flags/us.png",
-    "regionLabel": "US",
-    "title": "Chemistry, Manufacturing, and Controls Development and Readiness Pilot Program; Program Announcement",
-    "body": "The Food and Drug Administration (FDA or Agency) is announcing year five of the Chemistry, Manufacturing, and Controls (CMC) Development and Readiness Pilot (CDRP). This program facilitates the expedi",
-    "link": "https://www.federalregister.gov/documents/2026/09/21/2026-19277/chemistry-manufacturing-and-controls-development-and-readiness-pilot-program-program-announcement"
   }
 ]
