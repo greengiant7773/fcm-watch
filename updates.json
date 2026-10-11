@@ -1,5 +1,14 @@
 [
   {
+    "date": "2026-10-13",
+    "region": "us",
+    "flag": "flags/us.png",
+    "regionLabel": "US",
+    "title": "Use of Salt Substitutes To Reduce the Sodium Content in Standardized Foods",
+    "body": "The Food and Drug Administration (FDA or we) is issuing a final rule to amend our standard of identity regulations that specify salt (sodium chloride) as a required or optional ingredient to permit th",
+    "link": "https://www.federalregister.gov/documents/2026/10/13/2026-20848/use-of-salt-substitutes-to-reduce-the-sodium-content-in-standardized-foods"
+  },
+  {
     "date": "2026-10-09",
     "region": "us",
     "flag": "flags/us.png",
@@ -79,14 +88,5 @@
     "title": "Food Additives Permitted for Direct Addition to Food for Human Consumption; Vitamin D2 Inactive Bakers Yeast",
     "body": "The Food and Drug Administration (FDA or we) is amending the food additive regulations to provide for the safe use of vitamin D2 inactive bakers yeast as a source of vitamin D2 in specific food catego",
     "link": "https://www.federalregister.gov/documents/2026/09/25/2026-19656/food-additives-permitted-for-direct-addition-to-food-for-human-consumption-vitamin-d2-inactive"
-  },
-  {
-    "date": "2026-09-25",
-    "region": "us",
-    "flag": "flags/us.png",
-    "regionLabel": "US",
-    "title": "Jeffrey Thies: Final Debarment Order",
-    "body": "The Food and Drug Administration (FDA or the Agency) is issuing an order under the Federal Food, Drug, and Cosmetic Act (FD&C Act) debarring Jeffrey Thies for a period of 10 years from importing or of",
-    "link": "https://www.federalregister.gov/documents/2026/09/25/2026-19655/jeffrey-thies-final-debarment-order"
   }
 ]
