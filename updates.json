@@ -1,5 +1,14 @@
 [
   {
+    "date": "2026-10-23",
+    "region": "us",
+    "flag": "flags/us.png",
+    "regionLabel": "US",
+    "title": "Hazard Analysis and Risk-Based Preventive Controls for Human Food; Draft Guidance for Industry; Availability",
+    "body": "The Food and Drug Administration (FDA, the Agency, or we) is announcing the availability of one additional draft chapter of a multichapter draft guidance for industry titled \"Hazard Analysis and Risk-",
+    "link": "https://www.federalregister.gov/documents/2026/10/23/2026-21669/hazard-analysis-and-risk-based-preventive-controls-for-human-food-draft-guidance-for-industry"
+  },
+  {
     "date": "2026-10-13",
     "region": "us",
     "flag": "flags/us.png",
@@ -79,14 +88,5 @@
     "title": "Filing of Color Additive Petition From Doehler GmbH; Request To Amend the Color Additive Regulations To Provide for the Safe Use of Calcium Sulfate in Various Foods at Levels Consistent With Good Manufacturing Practice",
     "body": "The Food and Drug Administration (FDA or we) is announcing that we have filed a color additive petition, submitted by Doehler GmbH, c/o Hogan Lovells Cadwalader, proposing that we amend our color addi",
     "link": "https://www.federalregister.gov/documents/2026/09/25/2026-19658/filing-of-color-additive-petition-from-doehler-gmbh-request-to-amend-the-color-additive-regulations"
-  },
-  {
-    "date": "2026-09-25",
-    "region": "us",
-    "flag": "flags/us.png",
-    "regionLabel": "US",
-    "title": "Food Additives Permitted for Direct Addition to Food for Human Consumption; Vitamin D2 Inactive Bakers Yeast",
-    "body": "The Food and Drug Administration (FDA or we) is amending the food additive regulations to provide for the safe use of vitamin D2 inactive bakers yeast as a source of vitamin D2 in specific food catego",
-    "link": "https://www.federalregister.gov/documents/2026/09/25/2026-19656/food-additives-permitted-for-direct-addition-to-food-for-human-consumption-vitamin-d2-inactive"
   }
 ]
